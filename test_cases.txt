@@ -1,0 +1,94 @@
+/* 
+   Test Cases for Lexical Analysis
+   This file contains test programs to verify the lexer's capabilities
+*/
+
+/* TEST 1: Basic Variable Declaration and Assignment */
+int count;
+float price;
+count = 100;
+price = 99.99;
+
+/* TEST 2: Arithmetic Operations */
+int a;
+int b;
+float result;
+a = 10;
+b = 20;
+result = a + b;
+result = a - b;
+result = a * b;
+result = a / b;
+result = a % 5;
+
+/* TEST 3: Relational Operators */
+if (a < b) {
+    print(a);
+}
+
+if (a > b) {
+    print(b);
+}
+
+if (a <= b) {
+    print(a);
+}
+
+if (a >= b) {
+    print(b);
+}
+
+if (a == b) {
+    print(a);
+}
+
+if (a != b) {
+    print(b);
+}
+
+/* TEST 4: Boolean Operators */
+if ((a > 0) && (b > 0)) {
+    print(a);
+}
+
+if ((a < 0) || (b < 0)) {
+    print(b);
+}
+
+if (!(a == 0)) {
+    print(a);
+}
+
+/* TEST 5: While Loop */
+while (count > 0) {
+    count = count - 1;
+    print(count);
+}
+
+/* TEST 6: If-Else Structure */
+if (count == 0) {
+    print(count);
+}
+else {
+    count = 10;
+}
+
+/* TEST 7: Block Structure */
+{
+    int x;
+    float y;
+    x = 5;
+    y = 2.5;
+    print(x);
+    print(y);
+}
+
+/* TEST 8: Multiple Operations */
+int m;
+float n;
+m = 15;
+n = 3.7;
+result = m + n;
+if (result > 15.0) {
+    print(result);
+}

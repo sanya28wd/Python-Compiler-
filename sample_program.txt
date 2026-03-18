@@ -1,0 +1,15 @@
+int main;
+float pi;
+pi = 3.14;
+main = 5;
+
+fi (main < 10) {
+    print(pi);
+}
+else {
+    main = main + 1;
+}
+
+while (main > 0) {
+    main = main - 1;
+}
