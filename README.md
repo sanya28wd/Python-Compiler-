@@ -23,6 +23,6 @@ LANGUAGE SPECIFICATION:
 The compiler is tailored to a specific core language supporting:
 1. Data Types: int and float.
 2. Control Flow: if-else statements and while loops.
-3. Operators: A full suite of arithmetic ($+,-,*,/,\%$), relational ($<,>,<=,>=,==,!=$), and boolean ($&&, ||, !$) operators.
+3. Operators: A full suite of arithmetic ($+,-,*,/,\%$), relational ($<,>,<=,>=,==,!=$), and boolean operators.
 4. Structure: Variable declarations, assignment statements, and block structures using {}.
 5. Verification: The system is rigorously tested against a prescribed evaluation program involving complex arithmetic, nested loops, and conditional logic to ensure the integrity of the compilation pipeline from source to target
