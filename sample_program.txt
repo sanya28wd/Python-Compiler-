@@ -1,0 +1,15 @@
+int x;
+float y;
+x = 10;
+y = 3.14;
+
+if (x > 5) {
+	print(x);
+}
+else {
+        y = y + 2.5;
+}
+
+while (x > 0) {
+        x = x - 1;
+}
