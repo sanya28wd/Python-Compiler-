@@ -22,6 +22,40 @@ Core concepts explained
 
 - Optimizations & Target Generation
   - Basic optimizations (constant folding, dead code removal in simplified form, local value numbering where feasible) are applied to TAC, and a simple pseudo-assembly is emitted for inspection.
+ 
+Diagrams
+--------
+
+Overview of the compilation pipeline:
+
+```mermaid
+flowchart LR
+  src["Source Code\n(e.g. sample_program.txt)"]
+  lex["Lexer\n(Token stream)"]
+  parse["Parser\n(AST & Derivations)"]
+  sem["Semantic Analyzer\n(Symbol Table, Types)"]
+  icg["ICG\n(Three-Address Code)"]
+  opt["Optimizer\n(Constant folding, DCE)"]
+  asm["Target Pseudo-Assembly"]
+
+  src --> lex --> parse --> sem --> icg --> opt --> asm
+```
+
+AST → Intermediate representations and control-flow:
+
+```mermaid
+graph TD
+  AST["Abstract Syntax Tree (AST)"]
+  TAC["Three-Address Code (TAC)"]
+  BB["Basic Blocks\n(leader analysis)"]
+  CFG["Control Flow Graph (CFG)"]
+
+  AST --> TAC --> BB --> CFG
+```
+
+Captions:
+- The first diagram shows the sequential phases any input program traverses inside this mini-compiler.
+- The second diagram highlights how a hierarchical AST is lowered to linear TAC, then partitioned into basic blocks and connected into a CFG for analysis/optimization.
 
 Why this is useful
 -------------------
@@ -82,39 +116,3 @@ Contributions and suggestions are welcome. Open an issue to propose structural c
 Contact / author
 ----------------
 Author: Sanya Wadhawan
-
-
-Diagrams
---------
-
-Overview of the compilation pipeline:
-
-```mermaid
-flowchart LR
-  src["Source Code\n(e.g. sample_program.txt)"]
-  lex["Lexer\n(Token stream)"]
-  parse["Parser\n(AST & Derivations)"]
-  sem["Semantic Analyzer\n(Symbol Table, Types)"]
-  icg["ICG\n(Three-Address Code)"]
-  opt["Optimizer\n(Constant folding, DCE)"]
-  asm["Target Pseudo-Assembly"]
-
-  src --> lex --> parse --> sem --> icg --> opt --> asm
-```
-
-AST → Intermediate representations and control-flow:
-
-```mermaid
-graph TD
-  AST["Abstract Syntax Tree (AST)"]
-  TAC["Three-Address Code (TAC)"]
-  BB["Basic Blocks\n(leader analysis)"]
-  CFG["Control Flow Graph (CFG)"]
-
-  AST --> TAC --> BB --> CFG
-```
-
-Captions:
-- The first diagram shows the sequential phases any input program traverses inside this mini-compiler.
-- The second diagram highlights how a hierarchical AST is lowered to linear TAC, then partitioned into basic blocks and connected into a CFG for analysis/optimization.
-
