@@ -18,218 +18,102 @@ Abstract Syntax Tree Structure:
         │   ├── Decl
         │   │   ├── Type
         │   │   │   └── Token(INT: int)
-        │   │   └── Token(ID: sum)
-        │   └── Token(SEMICOLON: ;)
-        ├── Stmt
-        │   ├── Decl
-        │   │   ├── Type
-        │   │   │   └── Token(FLOAT: float)
-        │   │   └── Token(ID: avg)
+        │   │   └── Token(ID: c)
         │   └── Token(SEMICOLON: ;)
         ├── Stmt
         │   ├── Assign
         │   │   ├── Token(ID: a)
         │   │   ├── Token(ASSIGN: =)
-        │   │   └── Term
-        │   │       ├── Factor
-        │   │       │   └── Token(INT_LIT: 2)
-        │   │       ├── Token(MUL: *)
-        │   │       └── Factor
-        │   │           ├── Token(LPAREN: ()
-        │   │           ├── Expr
-        │   │           │   ├── Factor
-        │   │           │   │   └── Token(INT_LIT: 3)
-        │   │           │   ├── Token(PLUS: +)
-        │   │           │   └── Factor
-        │   │           │       └── Token(INT_LIT: 4)
-        │   │           └── Token(RPAREN: ))
+        │   │   └── Factor
+        │   │       └── Token(INT_LIT: 10)
         │   └── Token(SEMICOLON: ;)
         ├── Stmt
         │   ├── Assign
         │   │   ├── Token(ID: b)
         │   │   ├── Token(ASSIGN: =)
         │   │   └── Factor
-        │   │       └── Token(INT_LIT: 15)
+        │   │       └── Token(INT_LIT: 20)
         │   └── Token(SEMICOLON: ;)
         ├── Stmt
         │   ├── Assign
-        │   │   ├── Token(ID: sum)
+        │   │   ├── Token(ID: c)
         │   │   ├── Token(ASSIGN: =)
-        │   │   └── Factor
-        │   │       └── Token(INT_LIT: 0)
+        │   │   └── Expr
+        │   │       ├── Factor
+        │   │       │   └── Token(ID: a)
+        │   │       ├── Token(PLUS: +)
+        │   │       └── Term
+        │   │           ├── Factor
+        │   │           │   └── Token(ID: b)
+        │   │           ├── Token(MUL: *)
+        │   │           └── Factor
+        │   │               └── Token(INT_LIT: 2)
         │   └── Token(SEMICOLON: ;)
         ├── Stmt
-        │   └── WhileStmt
-        │       ├── Token(WHILE: while)
+        │   └── IfStmt
+        │       ├── Token(IF: if)
         │       ├── Token(LPAREN: ()
-        │       ├── BoolAnd
-        │       │   ├── RelExpr
-        │       │   │   ├── Factor
-        │       │   │   │   └── Token(ID: a)
-        │       │   │   ├── Token(LT: <)
-        │       │   │   └── Factor
-        │       │   │       └── Token(ID: b)
-        │       │   ├── Token(AND: &&)
-        │       │   └── RelExpr
-        │       │       ├── Factor
-        │       │       │   └── Token(ID: b)
-        │       │       ├── Token(NE: !=)
-        │       │       └── Factor
-        │       │           └── Token(INT_LIT: 0)
+        │       ├── RelExpr
+        │       │   ├── Factor
+        │       │   │   └── Token(ID: c)
+        │       │   ├── Token(GT: >)
+        │       │   └── Factor
+        │       │       └── Token(INT_LIT: 30)
         │       ├── Token(RPAREN: ))
+        │       ├── Stmt
+        │       │   └── Block
+        │       │       ├── Token(LBRACE: {)
+        │       │       ├── StmtList
+        │       │       │   └── Stmt
+        │       │       │       ├── PrintStmt
+        │       │       │       │   ├── Token(PRINT: print)
+        │       │       │       │   ├── Token(LPAREN: ()
+        │       │       │       │   ├── Factor
+        │       │       │       │   │   └── Token(ID: c)
+        │       │       │       │   └── Token(RPAREN: ))
+        │       │       │       └── Token(SEMICOLON: ;)
+        │       │       └── Token(RBRACE: })
+        │       ├── Token(ELSE: else)
         │       └── Stmt
         │           └── Block
         │               ├── Token(LBRACE: {)
         │               ├── StmtList
-        │               │   ├── Stmt
-        │               │   │   ├── Decl
-        │               │   │   │   ├── Type
-        │               │   │   │   │   └── Token(INT: int)
-        │               │   │   │   └── Token(ID: temp)
-        │               │   │   └── Token(SEMICOLON: ;)
-        │               │   ├── Stmt
-        │               │   │   ├── Assign
-        │               │   │   │   ├── Token(ID: temp)
-        │               │   │   │   ├── Token(ASSIGN: =)
-        │               │   │   │   └── Term
-        │               │   │   │       ├── Factor
-        │               │   │   │       │   └── Token(ID: a)
-        │               │   │   │       ├── Token(MUL: *)
-        │               │   │   │       └── Factor
-        │               │   │   │           └── Token(INT_LIT: 2)
-        │               │   │   └── Token(SEMICOLON: ;)
-        │               │   ├── Stmt
-        │               │   │   └── IfStmt
-        │               │   │       ├── Token(IF: if)
-        │               │   │       ├── Token(LPAREN: ()
-        │               │   │       ├── BoolOr
-        │               │   │       │   ├── BoolNot
-        │               │   │       │   │   ├── Token(LPAREN: ()
-        │               │   │       │   │   ├── RelExpr
-        │               │   │       │   │   │   ├── Term
-        │               │   │       │   │   │   │   ├── Factor
-        │               │   │       │   │   │   │   │   └── Token(ID: temp)
-        │               │   │       │   │   │   │   ├── Token(MOD: %)
-        │               │   │       │   │   │   │   └── Factor
-        │               │   │       │   │   │   │       └── Token(INT_LIT: 3)
-        │               │   │       │   │   │   ├── Token(EQ: ==)
-        │               │   │       │   │   │   └── Factor
-        │               │   │       │   │   │       └── Token(INT_LIT: 0)
-        │               │   │       │   │   └── Token(RPAREN: ))
-        │               │   │       │   ├── Token(OR: ||)
-        │               │   │       │   └── BoolNot
-        │               │   │       │       ├── Token(LPAREN: ()
-        │               │   │       │       ├── RelExpr
-        │               │   │       │       │   ├── Factor
-        │               │   │       │       │   │   └── Token(ID: a)
-        │               │   │       │       │   ├── Token(GT: >)
-        │               │   │       │       │   └── Factor
-        │               │   │       │       │       └── Token(INT_LIT: 5)
-        │               │   │       │       └── Token(RPAREN: ))
-        │               │   │       ├── Token(RPAREN: ))
-        │               │   │       ├── Stmt
-        │               │   │       │   └── Block
-        │               │   │       │       ├── Token(LBRACE: {)
-        │               │   │       │       ├── StmtList
-        │               │   │       │       │   └── Stmt
-        │               │   │       │       │       ├── Assign
-        │               │   │       │       │       │   ├── Token(ID: sum)
-        │               │   │       │       │       │   ├── Token(ASSIGN: =)
-        │               │   │       │       │       │   └── Expr
-        │               │   │       │       │       │       ├── Factor
-        │               │   │       │       │       │       │   └── Token(ID: sum)
-        │               │   │       │       │       │       ├── Token(PLUS: +)
-        │               │   │       │       │       │       └── Factor
-        │               │   │       │       │       │           └── Token(ID: temp)
-        │               │   │       │       │       └── Token(SEMICOLON: ;)
-        │               │   │       │       └── Token(RBRACE: })
-        │               │   │       ├── Token(ELSE: else)
-        │               │   │       └── Stmt
-        │               │   │           └── Block
-        │               │   │               ├── Token(LBRACE: {)
-        │               │   │               ├── StmtList
-        │               │   │               │   └── Stmt
-        │               │   │               │       ├── Assign
-        │               │   │               │       │   ├── Token(ID: sum)
-        │               │   │               │       │   ├── Token(ASSIGN: =)
-        │               │   │               │       │   └── Expr
-        │               │   │               │       │       ├── Factor
-        │               │   │               │       │       │   └── Token(ID: sum)
-        │               │   │               │       │       ├── Token(MINUS: -)
-        │               │   │               │       │       └── Factor
-        │               │   │               │       │           └── Token(INT_LIT: 1)
-        │               │   │               │       └── Token(SEMICOLON: ;)
-        │               │   │               └── Token(RBRACE: })
         │               │   └── Stmt
         │               │       ├── Assign
-        │               │       │   ├── Token(ID: a)
+        │               │       │   ├── Token(ID: c)
         │               │       │   ├── Token(ASSIGN: =)
         │               │       │   └── Expr
         │               │       │       ├── Factor
-        │               │       │       │   └── Token(ID: a)
-        │               │       │       ├── Token(PLUS: +)
+        │               │       │       │   └── Token(ID: c)
+        │               │       │       ├── Token(MINUS: -)
         │               │       │       └── Factor
         │               │       │           └── Token(INT_LIT: 1)
         │               │       └── Token(SEMICOLON: ;)
         │               └── Token(RBRACE: })
-        ├── Stmt
-        │   ├── Assign
-        │   │   ├── Token(ID: avg)
-        │   │   ├── Token(ASSIGN: =)
-        │   │   └── Term
-        │   │       ├── Factor
-        │   │       │   └── Token(ID: sum)
-        │   │       ├── Token(DIV: /)
-        │   │       └── Factor
-        │   │           ├── Token(LPAREN: ()
-        │   │           ├── Expr
-        │   │           │   ├── Factor
-        │   │           │   │   └── Token(ID: b)
-        │   │           │   ├── Token(MINUS: -)
-        │   │           │   └── Factor
-        │   │           │       └── Token(ID: a)
-        │   │           └── Token(RPAREN: ))
-        │   └── Token(SEMICOLON: ;)
         └── Stmt
-            └── IfStmt
-                ├── Token(IF: if)
+            └── WhileStmt
+                ├── Token(WHILE: while)
                 ├── Token(LPAREN: ()
-                ├── BoolNot
-                │   ├── Token(NOT: !)
-                │   └── BoolNot
-                │       ├── Token(LPAREN: ()
-                │       ├── RelExpr
-                │       │   ├── Factor
-                │       │   │   └── Token(ID: avg)
-                │       │   ├── Token(LT: <)
-                │       │   └── Factor
-                │       │       └── Token(FLOAT_LIT: 5.0)
-                │       └── Token(RPAREN: ))
+                ├── RelExpr
+                │   ├── Factor
+                │   │   └── Token(ID: a)
+                │   ├── Token(LT: <)
+                │   └── Factor
+                │       └── Token(ID: b)
                 ├── Token(RPAREN: ))
-                ├── Stmt
-                │   └── Block
-                │       ├── Token(LBRACE: {)
-                │       ├── StmtList
-                │       │   └── Stmt
-                │       │       ├── PrintStmt
-                │       │       │   ├── Token(PRINT: print)
-                │       │       │   ├── Token(LPAREN: ()
-                │       │       │   ├── Factor
-                │       │       │   │   └── Token(ID: sum)
-                │       │       │   └── Token(RPAREN: ))
-                │       │       └── Token(SEMICOLON: ;)
-                │       └── Token(RBRACE: })
-                ├── Token(ELSE: else)
                 └── Stmt
                     └── Block
                         ├── Token(LBRACE: {)
                         ├── StmtList
                         │   └── Stmt
-                        │       ├── PrintStmt
-                        │       │   ├── Token(PRINT: print)
-                        │       │   ├── Token(LPAREN: ()
-                        │       │   ├── Factor
-                        │       │   │   └── Token(ID: avg)
-                        │       │   └── Token(RPAREN: ))
+                        │       ├── Assign
+                        │       │   ├── Token(ID: a)
+                        │       │   ├── Token(ASSIGN: =)
+                        │       │   └── Expr
+                        │       │       ├── Factor
+                        │       │       │   └── Token(ID: a)
+                        │       │       ├── Token(PLUS: +)
+                        │       │       └── Factor
+                        │       │           └── Token(INT_LIT: 1)
                         │       └── Token(SEMICOLON: ;)
                         └── Token(RBRACE: })
