@@ -29,10 +29,6 @@ Why this is useful
 - Prototyping: A small, modifiable codebase to test new language features, grammars, or optimization ideas.
 - Teaching: Useful for compiler courses, labs or demonstrations where instructors want students to trace how specific constructs (loops, conditionals, expressions) are handled.
 
-What changed in this update
----------------------------
-This branch integrates the CC_LAB_WEEK7 lab bundle: updated/added lexer, parser, semantic routines, ICG, optimizer, IR helpers, and example/test artifacts. Running the included example writes an AST dump (ast_structure.txt) and LL(1) parsing table (ll1_table.txt) for reviewer convenience.
-
 Quickstart
 ----------
 - Interactive menu:
