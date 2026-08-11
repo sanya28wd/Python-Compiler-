@@ -1,0 +1,150 @@
+# Semantic Analysis Test Cases
+# Language: custom compiler language (int, float, if/else, while, print)
+# How to use:
+# 1) Run main.py
+# 2) Choose option 2 (manual input)
+# 3) Paste ONE case block
+# 4) Type END
+# 5) Press Enter to skip LL(1)/SLR (or choose L/S if needed)
+
+============================================================
+CASE 1: VALID BASELINE (SHOULD PASS)
+============================================================
+int a;
+float b;
+a = 10;
+b = a + 2.5;
+if (a > 5) {
+    print(a);
+} else {
+    print(b);
+}
+
+Expected: Semantic PASS
+
+
+============================================================
+CASE 2: UNDECLARED VARIABLE IN ASSIGNMENT (SHOULD FAIL)
+============================================================
+int x;
+x = y + 1;
+
+Expected: Semantic Error (undeclared variable 'y')
+
+
+============================================================
+CASE 3: UNDECLARED VARIABLE IN CONDITION (SHOULD FAIL)
+============================================================
+int x;
+x = 5;
+if (x < z) {
+    print(x);
+}
+
+Expected: Semantic Error (undeclared variable 'z')
+
+
+============================================================
+CASE 4: DUPLICATE DECLARATION IN SAME SCOPE (SHOULD FAIL)
+============================================================
+int a;
+int a;
+
+Expected: Semantic Error (already declared in current scope)
+
+
+============================================================
+CASE 5: SHADOWING IN INNER SCOPE (SHOULD PASS)
+============================================================
+int a;
+a = 1;
+{
+    int a;
+    a = 2;
+    print(a);
+}
+print(a);
+
+Expected: Semantic PASS (inner 'a' shadows outer 'a')
+
+
+============================================================
+CASE 6: TYPE MISMATCH ASSIGNMENT FLOAT -> INT (SHOULD FAIL)
+============================================================
+int n;
+n = 3.14;
+
+Expected: Semantic Error (type mismatch FLOAT to INT)
+
+
+============================================================
+CASE 7: WIDENING ASSIGNMENT INT -> FLOAT (SHOULD PASS)
+============================================================
+int x;
+float y;
+x = 7;
+y = x;
+
+Expected: Semantic PASS
+
+
+============================================================
+CASE 8: INVALID BOOLEAN CONDITION IF(NUMERIC) (SHOULD FAIL)
+============================================================
+int a;
+a = 5;
+if (a) {
+    print(a);
+}
+
+Expected: Semantic Error (invalid boolean condition)
+
+
+============================================================
+CASE 9: INVALID BOOLEAN CONDITION WHILE(NUMERIC EXPR) (SHOULD FAIL)
+============================================================
+int x;
+x = 2;
+while (x + 1) {
+    x = x - 1;
+}
+
+Expected: Semantic Error (invalid boolean condition)
+
+
+============================================================
+CASE 10: MOD WITH FLOAT OPERAND (SHOULD FAIL)
+============================================================
+float a;
+int b;
+a = 5.0;
+b = 2;
+if (a % b == 0) {
+    print(b);
+}
+
+Expected: Semantic Error (operator '%' requires INT operands)
+
+
+============================================================
+CASE 11: COMPLEX VALID PROGRAM (SHOULD PASS)
+============================================================
+int a;
+int b;
+int sum;
+float avg;
+a = 2;
+b = 6;
+sum = 0;
+while (a < b && b != 0) {
+    sum = sum + a;
+    a = a + 1;
+}
+avg = sum / (b - 1);
+if (!(avg < 5.0)) {
+    print(sum);
+} else {
+    print(avg);
+}
+
+Expected: Semantic PASS
