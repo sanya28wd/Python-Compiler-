@@ -3,12 +3,9 @@ Lexical Analyzer (Lexer) for the custom compiler
 Performs lexical analysis on source code and generates tokens
 """
 
-from tokens import Token, TokenType
+from compiler_core import Token, TokenType, LexicalError
 
 
-class LexicalError(Exception):
-    # Exception for lexical errors
-    pass
 
 
 class Lexer:
@@ -30,12 +27,12 @@ class Lexer:
         
         # Keywords dictionary
         self.keywords = {
-            'int': TokenType.KEYWORD_INT,
-            'float': TokenType.KEYWORD_FLOAT,
-            'if': TokenType.KEYWORD_IF,
-            'else': TokenType.KEYWORD_ELSE,
-            'while': TokenType.KEYWORD_WHILE,
-            'print': TokenType.KEYWORD_PRINT,
+        'int': TokenType.INT,
+        'float': TokenType.FLOAT,
+        'if': TokenType.IF,
+        'else': TokenType.ELSE,
+        'while': TokenType.WHILE,
+        'print': TokenType.PRINT,
         }
     
     def current_char(self):
@@ -89,9 +86,9 @@ class Lexer:
             self.advance()
         
         if is_float:
-            return Token(TokenType.FLOAT, float(num_str), start_line, start_column)
+            return Token(TokenType.FLOAT_LIT, float(num_str), start_line, start_column)
         else:
-            return Token(TokenType.INTEGER, int(num_str), start_line, start_column)
+            return Token(TokenType.INT_LIT, int(num_str), start_line, start_column)
     
     def read_identifier(self):
         # Read identifier or keyword
@@ -104,7 +101,7 @@ class Lexer:
             self.advance()
         
         # Check if it's a keyword
-        token_type = self.keywords.get(ident, TokenType.IDENTIFIER)
+        token_type = self.keywords.get(ident, TokenType.ID)
         return Token(token_type, ident, start_line, start_column)
     
     def tokenize(self):
@@ -142,15 +139,15 @@ class Lexer:
                 self.advance()
             
             elif current == '*':
-                self.tokens.append(Token(TokenType.MULTIPLY, '*', line, column))
+                self.tokens.append(Token(TokenType.MUL, '*', line, column))
                 self.advance()
             
             elif current == '/':
-                self.tokens.append(Token(TokenType.DIVIDE, '/', line, column))
+                self.tokens.append(Token(TokenType.DIV, '/', line, column))
                 self.advance()
             
             elif current == '%':
-                self.tokens.append(Token(TokenType.MODULO, '%', line, column))
+                self.tokens.append(Token(TokenType.MOD, '%', line, column))
                 self.advance()
             
             elif current == '=':

@@ -1,0 +1,119 @@
+Abstract Syntax Tree Structure:
+
+└── Program
+    └── StmtList
+        ├── Stmt
+        │   ├── Decl
+        │   │   ├── Type
+        │   │   │   └── Token(INT: int)
+        │   │   └── Token(ID: a)
+        │   └── Token(SEMICOLON: ;)
+        ├── Stmt
+        │   ├── Decl
+        │   │   ├── Type
+        │   │   │   └── Token(INT: int)
+        │   │   └── Token(ID: b)
+        │   └── Token(SEMICOLON: ;)
+        ├── Stmt
+        │   ├── Decl
+        │   │   ├── Type
+        │   │   │   └── Token(INT: int)
+        │   │   └── Token(ID: c)
+        │   └── Token(SEMICOLON: ;)
+        ├── Stmt
+        │   ├── Assign
+        │   │   ├── Token(ID: a)
+        │   │   ├── Token(ASSIGN: =)
+        │   │   └── Factor
+        │   │       └── Token(INT_LIT: 10)
+        │   └── Token(SEMICOLON: ;)
+        ├── Stmt
+        │   ├── Assign
+        │   │   ├── Token(ID: b)
+        │   │   ├── Token(ASSIGN: =)
+        │   │   └── Factor
+        │   │       └── Token(INT_LIT: 20)
+        │   └── Token(SEMICOLON: ;)
+        ├── Stmt
+        │   ├── Assign
+        │   │   ├── Token(ID: c)
+        │   │   ├── Token(ASSIGN: =)
+        │   │   └── Expr
+        │   │       ├── Factor
+        │   │       │   └── Token(ID: a)
+        │   │       ├── Token(PLUS: +)
+        │   │       └── Term
+        │   │           ├── Factor
+        │   │           │   └── Token(ID: b)
+        │   │           ├── Token(MUL: *)
+        │   │           └── Factor
+        │   │               └── Token(INT_LIT: 2)
+        │   └── Token(SEMICOLON: ;)
+        ├── Stmt
+        │   └── IfStmt
+        │       ├── Token(IF: if)
+        │       ├── Token(LPAREN: ()
+        │       ├── RelExpr
+        │       │   ├── Factor
+        │       │   │   └── Token(ID: c)
+        │       │   ├── Token(GT: >)
+        │       │   └── Factor
+        │       │       └── Token(INT_LIT: 30)
+        │       ├── Token(RPAREN: ))
+        │       ├── Stmt
+        │       │   └── Block
+        │       │       ├── Token(LBRACE: {)
+        │       │       ├── StmtList
+        │       │       │   └── Stmt
+        │       │       │       ├── PrintStmt
+        │       │       │       │   ├── Token(PRINT: print)
+        │       │       │       │   ├── Token(LPAREN: ()
+        │       │       │       │   ├── Factor
+        │       │       │       │   │   └── Token(ID: c)
+        │       │       │       │   └── Token(RPAREN: ))
+        │       │       │       └── Token(SEMICOLON: ;)
+        │       │       └── Token(RBRACE: })
+        │       ├── Token(ELSE: else)
+        │       └── Stmt
+        │           └── Block
+        │               ├── Token(LBRACE: {)
+        │               ├── StmtList
+        │               │   └── Stmt
+        │               │       ├── Assign
+        │               │       │   ├── Token(ID: c)
+        │               │       │   ├── Token(ASSIGN: =)
+        │               │       │   └── Expr
+        │               │       │       ├── Factor
+        │               │       │       │   └── Token(ID: c)
+        │               │       │       ├── Token(MINUS: -)
+        │               │       │       └── Factor
+        │               │       │           └── Token(INT_LIT: 1)
+        │               │       └── Token(SEMICOLON: ;)
+        │               └── Token(RBRACE: })
+        └── Stmt
+            └── WhileStmt
+                ├── Token(WHILE: while)
+                ├── Token(LPAREN: ()
+                ├── RelExpr
+                │   ├── Factor
+                │   │   └── Token(ID: a)
+                │   ├── Token(LT: <)
+                │   └── Factor
+                │       └── Token(ID: b)
+                ├── Token(RPAREN: ))
+                └── Stmt
+                    └── Block
+                        ├── Token(LBRACE: {)
+                        ├── StmtList
+                        │   └── Stmt
+                        │       ├── Assign
+                        │       │   ├── Token(ID: a)
+                        │       │   ├── Token(ASSIGN: =)
+                        │       │   └── Expr
+                        │       │       ├── Factor
+                        │       │       │   └── Token(ID: a)
+                        │       │       ├── Token(PLUS: +)
+                        │       │       └── Factor
+                        │       │           └── Token(INT_LIT: 1)
+                        │       └── Token(SEMICOLON: ;)
+                        └── Token(RBRACE: })
